@@ -40,6 +40,31 @@ public class DLinkedList {
         next.prev = newNode;
     }
 
+    // 尾插
+    public void addLast(int data) {
+        DLinkedNode newNode = new DLinkedNode(data);
+
+        // 这个结点就是新的结点的前一个结点
+        // head 就是新的结点的后一个结点
+        DLinkedNode prev= head.prev;
+
+        newNode.next = head;
+        head.prev = newNode;
+
+        prev.next = newNode;
+        newNode.prev = prev;
+    }
+
+    // 任意位置插入
+    public void addIndex(int index, int data) {
+        int size = size();
+    }
+
+    private int size() {
+        return 0;
+    }
+
+
     public void display() {
         System.out.print("正向：[");
         for (DLinkedNode cur = head.next;
