@@ -58,10 +58,48 @@ public class DLinkedList {
     // 任意位置插入
     public void addIndex(int index, int data) {
         int size = size();
+        if (index < 0 || index > size) {
+            return;
+        }
+        if (index == 0) {
+            // 头插
+            addFirst(data);
+            return;
+        }
+        if (index == size) {
+            // 尾插
+            addLast(data);
+            return;
+        }
+        DLinkedNode next = getPos(index);
+        DLinkedNode prev = next.prev;
+
+        DLinkedNode newNode = new DLinkedNode(data);
+
+        prev.next = newNode;
+        newNode.prev = prev;
+
+        next.prev = newNode;
+        newNode.next = next;
+    }
+
+    private DLinkedNode getPos(int index) {
+        // 找到下标为 index 对应的结点
+        DLinkedNode cur = head.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        return cur;
     }
 
     private int size() {
-        return 0;
+        int size = 0;
+        for (DLinkedNode cur = head.next;
+                cur != head;
+                cur = cur.next) {
+            size++;
+        }
+        return size;
     }
 
 
@@ -77,12 +115,12 @@ public class DLinkedList {
         }
         System.out.println("]");
 
-        System.out.print("反向: [");
+        System.out.print("反向：[");
         for (DLinkedNode cur = head.prev;
              cur != head; cur = cur.prev) {
             System.out.print(cur.val);
             if (cur.prev != head) {
-                System.out.print(",");
+                System.out.print(", ");
             }
         }
         System.out.println("]");
